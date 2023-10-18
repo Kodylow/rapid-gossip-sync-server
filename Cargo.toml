@@ -11,6 +11,8 @@ lightning-net-tokio = { version = "0.0.117" }
 tokio = { version = "1.25", features = ["full"] }
 tokio-postgres = { version = "=0.7.5" }
 futures = "0.3"
+postgres-native-tls = "0.5.0"
+native-tls = "0.2.11"
 
 [dev-dependencies]
 lightning = { version = "0.0.117", features = ["_test_utils"] }
