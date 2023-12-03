@@ -5,7 +5,7 @@ use std::env;
 use std::io::Cursor;
 use std::net::{SocketAddr, ToSocketAddrs};
 use std::time::Duration;
-
+use dotenv::dotenv;
 use bitcoin::Network;
 use bitcoin::hashes::hex::FromHex;
 use bitcoin::secp256k1::PublicKey;
@@ -74,10 +74,12 @@ pub(crate) fn cache_path() -> String {
 
 pub(crate) fn cert_path() -> String {
     let path = env::var("DB_CERT").unwrap_or("db.crt".to_string()).to_lowercase();
+	println!("path {:?}", path);
     path
 }
 
 pub(crate) fn db_connection_config() -> Config {
+	dotenv().ok();
 	let mut config = Config::new();
 	let env_name_prefix = if cfg!(test) {
 		"RAPID_GOSSIP_TEST_DB"
@@ -96,6 +98,7 @@ pub(crate) fn db_connection_config() -> Config {
 	if let Ok(password) = env::var(format!("{}{}", env_name_prefix, "_PASSWORD")) {
 		config.password(&password);
 	}
+	
 	config
 }
 

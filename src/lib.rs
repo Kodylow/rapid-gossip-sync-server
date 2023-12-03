@@ -125,6 +125,7 @@ pub(crate) async fn connect_to_db() -> Client {
     let cert = Certificate::from_pem(&cert).expect("db cert should parse");
     let connector = TlsConnector::builder()
         .add_root_certificate(cert)
+		.danger_accept_invalid_hostnames(true)
         .build()
         .expect("db cert should build");
     let connector = MakeTlsConnector::new(connector);
